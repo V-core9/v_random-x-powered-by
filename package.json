@@ -1,18 +1,22 @@
 {
-  "name": "v_random-x-powered-by",
-  "version": "0.0.0",
-  "description": "",
+  "name": "x-powered-by-random",
+  "version": "0.0.1",
+  "description": "Express Middleware that provides random X-Powered-By header. ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "xPoweredBy",
-    "random", 
+    "random",
     "fakeData",
     "web",
-    "express"
+    "express",
+    "middleware"
   ],
   "author": "v-core9",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.17.3"
+  }
 }

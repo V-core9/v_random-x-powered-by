@@ -1,6 +1,6 @@
 const randomXPB = require("./xPoweredByList");
 
-module.exports = randomXPoweredBy = async (req, res, next) => {
-  res.set('X-Powered-By', await randomXPB());
+module.exports = xPoweredByRandom = async (req, res, next) => {
+  res.setHeader('X-Powered-By', await randomXPB());
   next();
 };
