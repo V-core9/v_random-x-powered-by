@@ -1,1 +1,8 @@
+.vscode
 node_modules
+
+.editorconfig
+.jshintrc
+.gitignore
+
+try.js
