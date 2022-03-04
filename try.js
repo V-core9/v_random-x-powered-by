@@ -1,10 +1,25 @@
-const xPoweredByRandom = require('./xPoweredByList');
+const randomXPB = require('./xPoweredByList');
 
-var gotItems = [];
-
+//! Test that shows how many it can generate in a single millisecond 
+//* [ 700-4500 items ] : Quite depends on the time given to generate.
 (async () => {
-  for (let i = 0; i < 1000; i++) {
-    gotItems.push(await xPoweredByRandom());
+
+  var gotItems = [];
+  const duration = 15;
+  var running = true; // is running
+  const started = Date.now(); // start time
+
+  while (running) {
+    gotItems.push(await randomXPB());
+    if (Date.now() - started > duration) {
+      running = false;
+    }
   }
-  console.log(gotItems);
+
+  //? Print the items count 
+  console.log("Duration: " + duration + " ms");
+  console.log("Items Count: " + gotItems.length);
+  console.log("Speed: " + Math.trunc(gotItems.length / duration) + " items/ms");
+  console.log("ItemTime: " + Math.trunc(duration / gotItems.length * 100000)/100 + " μs/item");
+
 })();

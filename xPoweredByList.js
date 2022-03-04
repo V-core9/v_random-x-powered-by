@@ -733,9 +733,8 @@ const xPowerList = [
   "php/5.2.1rc5-dev"
 ];
 
-const xPoweredByRandom = async () => {
-  var randomItem = Math.floor(Math.random() * xPowerList.length);
-  return xPowerList[randomItem];
+const randomXPB = async () => {
+  return xPowerList[Math.floor(Math.random() * xPowerList.length)];
 };
 
-module.exports = xPoweredByRandom;
+module.exports = randomXPB;
