@@ -1,8 +1,12 @@
 .vscode
+.git
+
 node_modules
+coverage
+__tests__
 
 .editorconfig
 .jshintrc
 .gitignore
 
-try.js
+sample-express.js

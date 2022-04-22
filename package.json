@@ -1,10 +1,10 @@
 {
   "name": "x-powered-by-random",
-  "version": "0.0.2",
-  "description": "Express Middleware that provides random X-Powered-By header. ",
+  "version": "0.0.3",
+  "description": "Express Middleware that provides random X-Powered-By header.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "xPoweredBy",
@@ -12,11 +12,13 @@
     "fakeData",
     "web",
     "express",
-    "middleware"
+    "middleware",
+    "v-core9"
   ],
   "author": "v-core9",
   "license": "MIT",
   "devDependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "jest": "^27.5.1"
   }
 }
