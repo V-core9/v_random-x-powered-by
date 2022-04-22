@@ -20,7 +20,6 @@ test("Base Speed Test", async () => {
 
   // Speed test / Items per millisecond [ipms]
   const ipms = gotItems.length / duration;
-  console.log(ipms);
   expect(ipms).toBeGreaterThan(500);
   expect(ipms).toBeLessThan( 1000);
 });
