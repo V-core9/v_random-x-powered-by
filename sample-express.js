@@ -3,7 +3,7 @@ const app = require('express')();
 
 app.use(xPoweredByRandom);
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 

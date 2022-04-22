@@ -1,6 +1,6 @@
 {
   "name": "x-powered-by-random",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Express Middleware that provides random X-Powered-By header.",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,16 @@
   ],
   "author": "v-core9",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/V-core9/x-powered-by-random/issues"
+  },
+  "homepage": "https://github.com/V-core9/x-powered-by-random#readme",
   "devDependencies": {
     "express": "^4.17.3",
     "jest": "^27.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/v-core9/x-powered-by-random.git"
   }
 }
