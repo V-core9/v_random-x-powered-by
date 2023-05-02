@@ -1,7 +1,7 @@
 //? List of X-POWERED-BY headers
 //> Reference URL: https://maqentaer.com/devopera-static-backup/http/devfiles.myopera.com/articles/554/httpheaders-x-powered-by-url.htm
 
-const xPowerList = [
+const xPowerList: string[] = [
   "asp.net",
   "php/4.4.7",
   "php/4.4.4",
@@ -347,7 +347,7 @@ const xPowerList = [
   "php/5.1.5 with hardening-patch",
   "php/4.4.4-tuxtools",
   "http://www.ids.it",
-  "\"\"",
+  '""',
   "php/4.3.10-12",
   "php/4.4.0-pl1-gentoo with hardening-patch",
   "php/5.2.1-0.dotdeb.2",
@@ -405,7 +405,7 @@ const xPowerList = [
   "php/4.4.7-dev",
   "web",
   "php/5.0.4-dev",
-  "biferno (<a href=\"http://www.biferno.it\">http://www.biferno.it</a>)",
+  'biferno (<a href="http://www.biferno.it">http://www.biferno.it</a>)',
   "servlet 2.4; tomcat-5.0.28/jboss-3.2.8.sp1 (build: cvstag=jboss_3_2_8_sp1 date=200603031235)",
   "efekt",
   "php/4.2.2-m10",
@@ -730,9 +730,42 @@ const xPowerList = [
   "wc1g",
   "xs2 v1.30.4.071203-1627",
   "php/4.0.6a",
-  "php/5.2.1rc5-dev"
+  "php/5.2.1rc5-dev",
 ];
 
-module.exports = xpbRandom = async () => {
-  return xPowerList[Math.floor(Math.random() * xPowerList.length)];
+const randomXplNumber: () => number = () =>
+  Math.floor(Math.random() * xPowerList.length);
+
+export const xpbRandom: () => Promise<string> = async () => {
+  return xPowerList[randomXplNumber()];
 };
+export const xpbRandomSync: () => string = () => {
+  return xPowerList[randomXplNumber()];
+};
+
+const asyncXPBR = async (req, res, next) => {
+  res.setHeader("X-Powered-By", await xpbRandom());
+  next();
+};
+
+const syncXPBR = (req, res, next) => {
+  res.setHeader("X-Powered-By", xpbRandomSync());
+  next();
+};
+
+const xPoweredByRandom: any = asyncXPBR;
+
+xPoweredByRandom.xpbRandom = xpbRandom;
+xPoweredByRandom.xpbRandomSync = xpbRandomSync;
+
+export const createXPoweredByRandom = (options: any = {}) => {
+  const useAsync = options.useAsync || false;
+  return useAsync ? asyncXPBR : syncXPBR;
+};
+
+createXPoweredByRandom.xPoweredByRandom = xPoweredByRandom;
+createXPoweredByRandom.xPowerList = xPowerList;
+
+//export default createXPoweredByRandom;
+module.exports = createXPoweredByRandom;
+module.exports.default = createXPoweredByRandom;
