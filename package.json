@@ -1,12 +1,21 @@
 {
   "name": "x-powered-by-random",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Express Middleware that provides random X-Powered-By header.",
-  "main": "./dist/index.js",
+  "main": "./dist/cjs.js",
+  "module": "./dist/es.js",
+  "unpkg": "./dist/umd.js",
+  "amd": "./dist/amd.js",
+  "browser": "./dist/umd.js",
+  "system": "./dist/system.js",
+  "iife": "./dist/iife.js",
   "scripts": {
-    "test": "tsc --build && jest",
-    "build": "tsc --build",
-    "clean": "tsc --build --clean",
+    "test": "jest",
+    "build": "rollup -c ./rollup.config.js --bundleConfigAsCjs",
+    "build:prod": "rollup -c ./rollup.config.js --bundleConfigAsCjs --environment NODE_ENV:production",
+    "lint": "eslint ./src/**/*",
+    "lint:fix": "eslint ./src/**/*  --fix",
+    "export:types": "sh -c \"npx -p typescript tsc ./src/*.js --declaration --allowJs --emitDeclarationOnly --outFile ./types/index.d.ts \"",
     "prepack": "npm run build && npm run test"
   },
   "keywords": [
@@ -18,8 +27,8 @@
     "middleware",
     "v-core9"
   ],
-  "author": "v-core9",
-  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "typings": "./types/index.d.ts",
   "bugs": {
     "url": "https://github.com/V-core9/x-powered-by-random/issues"
   },
@@ -43,5 +52,19 @@
     "type": "git",
     "url": "git+https://github.com/v-core9/x-powered-by-random.git"
   },
-  "types": "./dts/index.d.ts"
+  "author": "V-core9",
+  "license": "FREE",
+  "srcDir": "src",
+  "srcIndex": "index",
+  "outDir": "dist",
+  "formats": [
+    "amd",
+    "cjs",
+    "es",
+    "iife",
+    "umd",
+    "system"
+  ],
+  "banner": "//! 📚 Package: |_.NAME._| \n//! 👨‍💻 Author: |_.AUTHOR._|",
+  "footer": "//! 📦 Version: |_.VERSION._| \n//! 📅 Bundled: |_.TIME_OF_BUNDLE._|"
 }

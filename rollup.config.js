@@ -1,59 +1,62 @@
-import path from "path";
+import path from 'path'
+import fs from 'fs'
 
-// import terser from '@rollup/plugin-terser'
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
+import terser from '@rollup/plugin-terser'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 
-const formats = ["iife", "cjs", "es"];
-const name = "x-powered-by-random";
-const srcDir = "src";
-const srcIndex = "index";
-const outDirName = "dist";
-const input = path.resolve(__dirname, `./${srcDir}/${srcIndex}.js`);
+const isProduction = process.env.NODE_ENV === 'production'
 
-const isProduction = process.env.NODE_ENV === "production";
+let pckg = {}
+try {
+  const packageJsonContent = fs.readFileSync('./package.json', 'utf8')
+  pckg = JSON.parse(packageJsonContent)
+} catch (error) {
+  console.error(`Error reading or parsing './package.json' for Rollup bundle:`, error)
+}
 
-const sourcemap = isProduction;
-const minifyInternalExports = isProduction;
-const sanitizeFileName = isProduction;
+pckg.banner = pckg.banner.replace('|_.NAME._|', pckg.name)
+pckg.banner = pckg.banner.replace('|_.AUTHOR._|', pckg.author)
+pckg.footer = pckg.footer.replace('|_.VERSION._|', pckg.version)
+pckg.footer = pckg.footer.replace('|_.TIME_OF_BUNDLE._|', Date(Date.now()).toString())
 
-const testLibConfig = {
-  input,
+export default {
+  input: path.resolve(__dirname, `./${pckg.srcDir}/${pckg.srcIndex}.js`),
   output: [
-    // 3 Versions output
-    ...formats.map((format) => ({
-      file: `./${outDirName}/${name}.${format}.js`,
-      name,
+    ...pckg.formats.map((format) => ({
+      file: `./${pckg.outDir}/${format}.js`,
+      name: pckg.name.replace(/-/g, '_'),
       format,
-      sourcemap,
-      minifyInternalExports,
-      sanitizeFileName,
-      noConflict: true,
+      banner: pckg.banner,
+      footer: pckg.footer,
+      sourcemap: isProduction,
+      minifyInternalExports: isProduction,
+      sanitizeFileName: isProduction,
+      noConflict: isProduction,
       generatedCode: {
-        arrowFunctions: true,
-        constBindings: true,
-        conciseMethodProperty: true,
-        objectShorthand: true,
-        parameterDestructuring: true,
-        reservedNamesAsProps: true,
-        stickyRegExp: true,
-        templateString: true,
-      },
-    })),
-
-    // ES export into Source Code
-    // {
-    //   file: pthRes('../app/src/utils/index.js'),
-    //   format: 'es'
-    // }
+        arrowFunctions: isProduction,
+        constBindings: isProduction,
+        conciseMethodProperty: isProduction,
+        objectShorthand: isProduction,
+        parameterDestructuring: isProduction,
+        reservedNamesAsProps: isProduction,
+        stickyRegExp: isProduction,
+        templateString: isProduction
+      }
+    }))
   ],
   plugins: [
     resolve(),
     commonjs(),
-    // babel({
-    //   exclude: 'node_modules/**'
-    // })
-  ],
-};
-
-export default testLibConfig;
+    ...(isProduction
+      ? [
+          terser({
+            maxWorkers: 4,
+            compress: {
+              ecma: 2015
+            }
+          })
+        ]
+      : [])
+  ]
+}

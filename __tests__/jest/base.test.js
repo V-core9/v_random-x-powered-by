@@ -1,13 +1,13 @@
-test("base test", async () => {
-  let { xPoweredByRandom } = require("../../dist");
-  let { gotItems, duration } = require("../shared/settings");
+const { xpbRandom } = require('../..')
+const { gotItems } = require('../shared/settings')
 
-  let testCount = 100;
+const testCount = 100
 
+test('base test', async () => {
   for (var i = 0; i < testCount; i++) {
-    await xPoweredByRandom.xpbRandom();
-    gotItems++;
+    await xpbRandom()
+    gotItems++
   }
 
-  expect(gotItems).toBe(testCount);
-});
+  expect(gotItems).toBe(testCount)
+})
