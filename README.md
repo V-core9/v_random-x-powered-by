@@ -4,22 +4,36 @@ Middleware for express that will produce random value for x-powered-by header.
 
 ## Installing
 
-    npm i x-powered-by-random -save
+```sh
+npm i x-powered-by-random -save
+```
 
 # Using
 
-    const app = require('express')();
+```js
+const { syncXPBR } = require('x-powered-by-random')
+// or 
+// import { asyncXPBR, syncXPBR } from 'x-powered-by-random'
 
-    const {xPoweredByRandom} = require('x-powered-by-random');
-    app.use(xPoweredByRandom);
+const app = require('express')()
 
-# Using async verions
+app.use(syncXPBR) // or app.use(asyncXPBR)
+```
 
-    const app = require('express')();
+# Additional info
 
-    const createXPoweredByRandom = require('x-powered-by-random');
-    app.use(createXPoweredByRandom({ useAsync: true }));
+There are also available two functions that will return random value for x-powered-by header, and a list of all possible values.
 
->### NOTE
+```js
+const { xpbRandomSync, xpbRandom, xPowerList } = require('x-powered-by-random')
+// or 
+// import { xpbRandomSync, xpbRandom } from 'x-powered-by-random'
+
+console.log(xpbRandomSync())
+console.log(await xpbRandom())
+console.log(xPowerList)
+```
+
+>### ⚠ NOTE  
 >
 > If you are using Helmet middleware you should put it afterwards because otherwise it might get overwritten/removed by the helmet/other middleware.

@@ -1,5 +1,5 @@
 const { xpbRandom } = require('../..')
-const { gotItems } = require('../shared/settings')
+let { gotItems } = require('../shared/settings')
 
 const testCount = 100
 
