@@ -16,7 +16,7 @@
     "lint": "eslint ./src/**/*",
     "lint:fix": "eslint ./src/**/*  --fix",
     "export:types": "sh -c \"npx -p typescript tsc ./src/*.js --declaration --allowJs --emitDeclarationOnly --outFile ./types/index.d.ts \"",
-    "prepack": "npm run build && npm run test"
+    "prepack": "npm run lint:fix && npm run export:types && npm run build:prod && npm run test"
   },
   "keywords": [
     "xPoweredBy",

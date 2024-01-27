@@ -12,3 +12,14 @@ __tests__
 sample-express.js
 
 src
+
+.eslintrc
+.eslintrc.json
+.eslintrc.yml
+.eslintrc.js
+
+rollup.config.js
+jest.config.js
+.gitignore
+package-lock.json
+.npmignore
